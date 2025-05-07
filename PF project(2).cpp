@@ -5,7 +5,7 @@
 const int MAX_CATEGORIES = 3;
 const int MAX_ITEMS = 10;
 const int MAX_NAME_LENGTH = 50;
-const int MAX_CART_ITEMS = 20;
+const int MAX_CART_ITEMS = 20; 
 
 
 typedef struct {
