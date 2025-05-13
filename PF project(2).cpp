@@ -144,3 +144,19 @@ void loadMenuItems() {
     menuItems[menuItemCount++] = (MenuItem){15, "Egg Fried Rice", 945.0, "MAIN COURSE"};
     menuItems[menuItemCount++] = (MenuItem){16, "Singaporean Noodles", 1237.0, "MAIN COURSE"};
 }
+
+int validateInput(const char* input, int isNumeric) {
+    if (strlen(input) == 0) return 0;
+   
+    if (isNumeric) {
+        for (int i = 0; input[i] != '\0'; i++) {
+            if (!isdigit(input[i])) return 0;
+        }
+        return 1;
+    } else {
+        for (int i = 0; input[i] != '\0'; i++) {
+            if (!isalpha(input[i]) && input[i] != ' ') return 0;
+        }
+        return 1;
+    }
+}
