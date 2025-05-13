@@ -82,3 +82,12 @@ void loadOrdersFromFile();
 void saveRidersToFile();
 void loadRidersFromFile();
 
+// Global variables
+User users[MAX_USERS];
+Order orders[MAX_ORDERS];
+Rider riders[MAX_RIDERS];
+MenuItem menuItems[20];
+int userCount = 0;
+int orderCount = 0;
+int riderCount = 0;
+int menuItemCount = 0;
