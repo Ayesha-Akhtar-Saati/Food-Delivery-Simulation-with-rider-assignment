@@ -135,3 +135,12 @@ void loadMenuItems() {
     menuItems[menuItemCount++] = (MenuItem){8, "Stuffed Chilli", 863.0, "APPETIZERS"};
     menuItems[menuItemCount++] = (MenuItem){9, "Chicken Drumsticks", 871.0, "APPETIZERS"};
     menuItems[menuItemCount++] = (MenuItem){10, "Fish and Chips", 556.0, "APPETIZERS"};
+      
+    // MAIN COURSE
+    menuItems[menuItemCount++] = (MenuItem){11, "Black Pepper Chicken", 1140.0, "MAIN COURSE"};
+    menuItems[menuItemCount++] = (MenuItem){12, "Sizzling Chicken", 1377.0, "MAIN COURSE"};
+    menuItems[menuItemCount++] = (MenuItem){13, "Mongolian Beef", 1016.0, "MAIN COURSE"};
+    menuItems[menuItemCount++] = (MenuItem){14, "Lotus Fish", 1028.0, "MAIN COURSE"};
+    menuItems[menuItemCount++] = (MenuItem){15, "Egg Fried Rice", 945.0, "MAIN COURSE"};
+    menuItems[menuItemCount++] = (MenuItem){16, "Singaporean Noodles", 1237.0, "MAIN COURSE"};
+}
