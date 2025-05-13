@@ -68,3 +68,17 @@ User* authenticateUser(const char* username, const char* password, const char* u
 void userDashboard(User* user);
 void adminDashboard(User* admin);
 void riderDashboard(User* rider);
+void placeOrder(User* user);
+void viewOrders(User* user);
+void updateOrderStatus(User* admin);
+void assignRider(User* admin);
+void viewAllOrders(User* admin);
+void viewAssignedDeliveries(User* rider);
+void updateDeliveryStatus(User* rider);
+void saveUsersToFile();
+void loadUsersFromFile();
+void saveOrdersToFile();
+void loadOrdersFromFile();
+void saveRidersToFile();
+void loadRidersFromFile();
+
