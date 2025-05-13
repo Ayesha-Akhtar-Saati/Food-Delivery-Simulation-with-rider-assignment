@@ -120,3 +120,18 @@ void initializeSystem() {
         saveRidersToFile();
     }
 }
+
+void loadMenuItems() {
+    // SOUPS
+    menuItems[menuItemCount++] = (MenuItem){1, "Hot and Sour Soup", 447.0, "SOUPS"};
+    menuItems[menuItemCount++] = (MenuItem){2, "Chicken Corn Soup", 155.0, "SOUPS"};
+    menuItems[menuItemCount++] = (MenuItem){3, "Thai Soup", 484.0, "SOUPS"};
+   
+    // APPETIZERS
+    menuItems[menuItemCount++] = (MenuItem){4, "Dynamite Prawns", 1220.0, "APPETIZERS"};
+    menuItems[menuItemCount++] = (MenuItem){5, "Crispy Shrimp Balls", 761.0, "APPETIZERS"};
+    menuItems[menuItemCount++] = (MenuItem){6, "Basket of Fries", 633.0, "APPETIZERS"};
+    menuItems[menuItemCount++] = (MenuItem){7, "Crispy Mini Rolls", 547.0, "APPETIZERS"};
+    menuItems[menuItemCount++] = (MenuItem){8, "Stuffed Chilli", 863.0, "APPETIZERS"};
+    menuItems[menuItemCount++] = (MenuItem){9, "Chicken Drumsticks", 871.0, "APPETIZERS"};
+    menuItems[menuItemCount++] = (MenuItem){10, "Fish and Chips", 556.0, "APPETIZERS"};
