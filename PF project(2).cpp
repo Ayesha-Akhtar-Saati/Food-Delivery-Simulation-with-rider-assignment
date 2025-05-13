@@ -91,3 +91,32 @@ int userCount = 0;
 int orderCount = 0;
 int riderCount = 0;
 int menuItemCount = 0;
+
+int main() {
+    initializeSystem();
+    mainMenu();
+    return 0;
+}
+
+void initializeSystem() {
+    loadUsersFromFile();
+    loadOrdersFromFile();
+    loadRidersFromFile();
+    loadMenuItems();
+    
+    // Create default admin if none exists
+    if (userCount == 0) {
+        User admin = {1, "Admin", "admin", "admin", "admin123", "1234567890", "Admin Address"};
+        users[userCount++] = admin;
+        
+        // Create a default rider for testing
+        User rider = {2, "Test Rider", "rider", "rider", "rider123", "9876543210", "Rider Address"};
+        users[userCount++] = rider;
+        
+        Rider riderRecord = {1, rider.id, "available", -1};
+        riders[riderCount++] = riderRecord;
+        
+        saveUsersToFile();
+        saveRidersToFile();
+    }
+}
