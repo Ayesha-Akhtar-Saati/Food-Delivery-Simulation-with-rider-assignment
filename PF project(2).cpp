@@ -54,3 +54,17 @@ typedef struct {
     int currentOrderId;
 } Rider;
 
+// Function declarations
+void initializeSystem();
+void loadMenuItems();
+int validateInput(const char* input, int isNumeric);
+void mainMenu();
+void userLogin();
+void adminLogin();
+void riderLogin();
+void registerUser();
+void registerRider();
+User* authenticateUser(const char* username, const char* password, const char* userType);
+void userDashboard(User* user);
+void adminDashboard(User* admin);
+void riderDashboard(User* rider);
