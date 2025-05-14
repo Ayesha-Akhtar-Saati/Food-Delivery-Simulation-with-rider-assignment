@@ -122,6 +122,7 @@ void initializeSystem() {
 }
 
 void loadMenuItems() {
+ 
     // SOUPS
     menuItems[menuItemCount++] = (MenuItem){1, "Hot and Sour Soup", 447.0, "SOUPS"};
     menuItems[menuItemCount++] = (MenuItem){2, "Chicken Corn Soup", 155.0, "SOUPS"};
@@ -160,3 +161,42 @@ int validateInput(const char* input, int isNumeric) {
         return 1;
     }
 }
+
+void mainMenu() {
+    int choice;
+    while (1) {
+        printf("\n===== FOOD DELIVERY SYSTEM =====\n");
+        printf("1. User Login\n");
+        printf("2. Admin Login\n");
+        printf("3. Rider Login\n");
+        printf("4. Register as User\n");
+        printf("5. Register as Rider\n");
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+        
+        char input[10];
+        scanf("%s", input);
+        
+        if (!validateInput(input, 1)) {
+            printf("Invalid input! Please enter a number.\n");
+            continue;
+        }
+        
+        choice = atoi(input);
+        
+        switch (choice) {
+            case 1: userLogin(); break;
+            case 2: adminLogin(); break;
+            case 3: riderLogin(); break;
+            case 4: registerUser(); break;
+            case 5: registerRider(); break;
+            case 6: 
+                saveUsersToFile();
+                saveOrdersToFile();
+                saveRidersToFile();
+                exit(0);
+            default: printf("Invalid choice! Try again.\n");
+        }
+    }
+}
+
