@@ -199,4 +199,21 @@ void mainMenu() {
         }
     }
 }
+void userLogin() {
+    char username[50], password[50];
+   
+    printf("\n===== USER LOGIN =====\n");
+    printf("Username: ");
+    scanf("%s", username);
+    printf("Password: ");
+    scanf("%s", password);
+   
+    User* user = authenticateUser(username, password, "user");
+    if (user != NULL) {
+        printf("\nLogin successful! Welcome, %s.\n", user->name);
+        userDashboard(user);
+    } else {
+        printf("\nInvalid username or password.\n");
+    }
+}
 
