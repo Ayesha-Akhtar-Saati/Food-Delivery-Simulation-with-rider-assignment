@@ -217,3 +217,20 @@ void userLogin() {
     }
 }
 
+void adminLogin() {
+    char username[50], password[50];
+   
+    printf("\n===== ADMIN LOGIN =====\n");
+    printf("Username: ");
+    scanf("%s", username);
+    printf("Password: ");
+    scanf("%s", password);
+   
+    User* admin = authenticateUser(username, password, "admin");
+    if (admin != NULL) {
+        printf("\nLogin successful! Welcome, %s.\n", admin->name);
+        adminDashboard(admin);
+    } else {
+        printf("\nInvalid username or password.\n");
+    }
+}
