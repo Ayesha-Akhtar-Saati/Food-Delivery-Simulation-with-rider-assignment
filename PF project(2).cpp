@@ -234,3 +234,21 @@ void adminLogin() {
         printf("\nInvalid username or password.\n");
     }
 }
+
+void riderLogin() {
+    char username[50], password[50];
+   
+    printf("\n===== RIDER LOGIN =====\n");
+    printf("Username: ");
+    scanf("%s", username);
+    printf("Password: ");
+    scanf("%s", password);
+   
+    User* rider = authenticateUser(username, password, "rider");
+    if (rider != NULL) {
+        printf("\nLogin successful! Welcome, %s.\n", rider->name);
+        riderDashboard(rider);
+    } else {
+        printf("\nInvalid username or password.\n");
+    }
+}
