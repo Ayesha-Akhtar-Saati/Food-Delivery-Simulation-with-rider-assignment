@@ -252,3 +252,57 @@ void riderLogin() {
         printf("\nInvalid username or password.\n");
     }
 }
+
+void registerUser() {
+    if (userCount >= MAX_USERS) {
+        printf("Maximum user limit reached!\n");
+        return;
+    }
+   
+    User newUser;
+    char input[100];
+   
+    printf("\n===== USER REGISTRATION =====\n");
+   
+    newUser.id = userCount + 1;
+    strcpy(newUser.type, "user");
+   
+    while (1) {
+        printf("Full Name: ");
+        getchar(); // Clear input buffer
+        fgets(input, sizeof(input), stdin);
+        input[strcspn(input, "\n")] = '\0';
+       
+        if (validateInput(input, 0)) {
+            strcpy(newUser.name, input);
+            break;
+        }
+        printf("Invalid name! Only alphabets and spaces allowed.\n");
+    }
+   
+    printf("Username: ");
+    scanf("%s", newUser.username);
+   
+    printf("Password: ");
+    scanf("%s", newUser.password);
+   
+    while (1) {
+        printf("Phone Number: ");
+        scanf("%s", input);
+        if (validateInput(input, 1) && strlen(input) == 10) {
+            strcpy(newUser.phone, input);
+            break;
+        }
+        printf("Invalid phone number! Must be 10 digits.\n");
+    }
+   
+    printf("Address: ");
+    getchar(); // Clear input buffer
+    fgets(newUser.address, sizeof(newUser.address), stdin);
+    newUser.address[strcspn(newUser.address, "\n")] = '\0';
+   
+    users[userCount++] = newUser;
+    saveUsersToFile();
+   
+    printf("\nRegistration successful! You can now login.\n");
+}
