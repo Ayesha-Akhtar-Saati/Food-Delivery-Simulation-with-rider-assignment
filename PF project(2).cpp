@@ -480,3 +480,41 @@ void riderDashboard(User* rider) {
         }
     }
 }
+
+void placeOrder(User* user) {
+    if (orderCount >= MAX_ORDERS) {
+        printf("Maximum order limit reached!\n");
+        return;
+    }
+   
+    Order newOrder;
+    newOrder.id = orderCount + 1;
+    newOrder.userId = user->id;
+    newOrder.orderTime = time(NULL);
+    newOrder.itemCount = 0;
+    newOrder.total = 0;
+    strcpy(newOrder.status, "preparing");
+    newOrder.riderId = -1;
+   
+    int choice;
+    char input[10];
+   
+    printf("\n===== PLACE NEW ORDER =====\n");
+   
+    while (1) {
+        printf("\nMenu Categories:\n");
+        printf("1. SOUPS\n");
+        printf("2. APPETIZERS\n");
+        printf("3. MAIN COURSE\n");
+        printf("4. Finish Order\n");
+        printf("Enter category choice: ");
+       
+        scanf("%s", input);
+       
+        if (!validateInput(input, 1)) {
+            printf("Invalid input! Please enter a number.\n");
+            continue;
+        }
+       
+        choice = atoi(input);
+       
