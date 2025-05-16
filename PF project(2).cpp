@@ -618,3 +618,20 @@ void placeOrder(User* user) {
         printf("\nNo items were added to the order.\n");
     }
 }
+
+void viewOrders(User* user) {
+    printf("\n===== YOUR ORDERS =====\n");
+   
+    int found = 0;
+    for (int i = 0; i < orderCount; i++) {
+        if (orders[i].userId == user->id) {
+            found = 1;
+            printf("\nOrder ID: %d\n", orders[i].id);
+            printf("Order Time: %s", ctime(&orders[i].orderTime));
+            printf("Status: %s\n", orders[i].status);
+            printf("Payment Method: %s\n", orders[i].paymentMethod);
+           
+            if (orders[i].riderId != -1) {
+                for (int j = 0; j < riderCount; j++) {
+                    if (riders[j].id == orders[i].riderId) {
+                        for (int k = 0; k < userCount; k++) {
