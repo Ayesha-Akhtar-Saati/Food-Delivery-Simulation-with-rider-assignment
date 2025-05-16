@@ -518,3 +518,103 @@ void placeOrder(User* user) {
        
         choice = atoi(input);
        
+        if (choice == 4) break;
+       
+        if (choice < 1 || choice > 3) {
+            printf("Invalid choice! Try again.\n");
+            continue;
+        }
+       
+        const char* category;
+        switch (choice) {
+            case 1: category = "SOUPS"; break;
+            case 2: category = "APPETIZERS"; break;
+            case 3: category = "MAIN COURSE"; break;
+        }
+       
+        printf("\n%s Menu:\n", category);
+        for (int i = 0; i < menuItemCount; i++) {
+            if (strcmp(menuItems[i].category, category) == 0) {
+                printf("%d. %s - Rs %.2f\n", menuItems[i].id, menuItems[i].name, menuItems[i].price);
+            }
+        }
+       
+        printf("Enter item ID to add (0 to go back): ");
+        scanf("%s", input);
+       
+        if (!validateInput(input, 1)) {
+            printf("Invalid input! Please enter a number.\n");
+            continue;
+        }
+       
+        int itemId = atoi(input);
+       
+        if (itemId == 0) continue;
+       
+        MenuItem* selectedItem = NULL;
+        for (int i = 0; i < menuItemCount; i++) {
+            if (menuItems[i].id == itemId && strcmp(menuItems[i].category, category) == 0) {
+                selectedItem = &menuItems[i];
+                break;
+            }
+        }
+       
+        if (selectedItem == NULL) {
+            printf("Invalid item ID!\n");
+            continue;
+        }
+       
+        printf("Enter quantity: ");
+        scanf("%s", input);
+       
+        if (!validateInput(input, 1)) {
+            printf("Invalid input! Please enter a number.\n");
+            continue;
+        }
+       
+        int quantity = atoi(input);
+       
+        if (quantity <= 0) {
+            printf("Quantity must be positive!\n");
+            continue;
+        }
+       
+        // Add item to order
+        newOrder.items[newOrder.itemCount].itemId = selectedItem->id;
+        newOrder.items[newOrder.itemCount].quantity = quantity;
+        newOrder.itemCount++;
+        newOrder.total += selectedItem->price * quantity;
+       
+        printf("Added %d x %s to your order.\n", quantity, selectedItem->name);
+    }
+   
+    if (newOrder.itemCount > 0) {
+        // Select payment method
+        printf("\nSelect payment method:\n");
+        printf("1. Cash on Delivery\n");
+        printf("2. Credit/Debit Card\n");
+        printf("Enter your choice: ");
+       
+        scanf("%s", input);
+          
+        if (!validateInput(input, 1)) {
+            printf("Invalid input! Using Cash on Delivery as default.\n");
+            strcpy(newOrder.paymentMethod, "cash");
+        } else {
+            choice = atoi(input);
+            if (choice == 2) {
+                strcpy(newOrder.paymentMethod, "card");
+                printf("Card payment selected. Payment will be processed when order is confirmed.\n");
+            } else {
+                strcpy(newOrder.paymentMethod, "cash");
+                printf("Cash on Delivery selected.\n");
+            }
+        }
+       
+        orders[orderCount++] = newOrder;
+        saveOrdersToFile();
+        printf("\nOrder placed successfully! Order ID: %d, Total: Rs %.2f\n", newOrder.id, newOrder.total);
+    } else {
+        printf("\nNo items were added to the order.\n");
+    }
+}
