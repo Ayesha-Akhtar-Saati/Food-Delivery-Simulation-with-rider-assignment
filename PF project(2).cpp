@@ -635,3 +635,33 @@ void viewOrders(User* user) {
                 for (int j = 0; j < riderCount; j++) {
                     if (riders[j].id == orders[i].riderId) {
                         for (int k = 0; k < userCount; k++) {
+                            if (users[k].id == riders[j].userId) {
+                                printf("Assigned Rider: %s (%s)\n", users[k].name, users[k].phone);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+           
+            printf("Items:\n");
+            for (int j = 0; j < orders[i].itemCount; j++) {
+                for (int k = 0; k < menuItemCount; k++) {
+                    if (menuItems[k].id == orders[i].items[j].itemId) {
+                        printf("- %d x %s (Rs %.2f each)\n",
+                               orders[i].items[j].quantity,
+                               menuItems[k].name,
+                               menuItems[k].price);
+                        break;
+                    }
+                }
+            }
+            printf("Total: Rs %.2f\n", orders[i].total);
+        }
+    }
+   
+    if (!found) {
+        printf("You have no orders yet.\n");
+    }
+}                        	
