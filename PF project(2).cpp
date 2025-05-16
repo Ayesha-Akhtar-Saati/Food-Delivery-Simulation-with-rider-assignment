@@ -9,9 +9,9 @@ const int MAX_USERS = 100;
 const int MAX_ORDERS = 100;
 const int MAX_RIDERS = 20;
 const int MAX_ITEMS = 20;
-const char FILENAME_USERS[] = "users.dat";
-const char FILENAME_ORDERS[] = "orders.dat";
-const char FILENAME_RIDERS[] = "riders.dat";
+const char FILENAME_USERS[] = "users.txt";
+const char FILENAME_ORDERS[] = "orders.txt";
+const char FILENAME_RIDERS[] = "riders.txt";
 
 // Structure definitions
 typedef struct {
