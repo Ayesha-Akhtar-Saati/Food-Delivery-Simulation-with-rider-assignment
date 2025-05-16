@@ -422,3 +422,33 @@ void userDashboard(User* user) {
         }
     }
 }
+
+void adminDashboard(User* admin) {
+    int choice;
+    while (1) {
+        printf("\n===== ADMIN DASHBOARD =====\n");
+        printf("1. View All Orders\n");
+        printf("2. Update Order Status\n");
+        printf("3. Assign Rider to Order\n");
+        printf("4. Logout\n");
+        printf("Enter your choice: ");
+       
+        char input[10];
+        scanf("%s", input);
+       
+        if (!validateInput(input, 1)) {
+            printf("Invalid input! Please enter a number.\n");
+            continue;
+        }
+       
+        choice = atoi(input);
+       
+        switch (choice) {
+            case 1: viewAllOrders(admin); break;
+            case 2: updateOrderStatus(admin); break;
+            case 3: assignRider(admin); break;
+            case 4: return;
+            default: printf("Invalid choice! Try again.\n");
+        }
+    }
+}
