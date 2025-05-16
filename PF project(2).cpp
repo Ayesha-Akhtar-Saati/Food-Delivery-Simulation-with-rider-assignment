@@ -368,3 +368,29 @@ void registerRider() {
     printf("\nRegistration successful! You can now login as a rider.\n");
 }
 
+User* authenticateUser(const char* username, const char* password, const char* userType) {
+    for (int i = 0; i < userCount; i++) {
+        if (strcmp(users[i].username, username) == 0 && 
+            strcmp(users[i].password, password) == 0 &&
+            strcmp(users[i].type, userType) == 0) {
+            
+            // For riders, verify there's a rider record
+            if (strcmp(userType, "rider") == 0) {
+                int riderFound = 0;
+                for (int j = 0; j < riderCount; j++) {
+                    if (riders[j].userId == users[i].id) {
+                        riderFound = 1;
+                        break;
+                    }
+                }
+                if (!riderFound) {
+                    return NULL;
+                }
+            }
+            
+            return &users[i];
+        }
+    }
+    return NULL;
+}
+
