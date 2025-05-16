@@ -306,3 +306,65 @@ void registerUser() {
    
     printf("\nRegistration successful! You can now login.\n");
 }
+
+void registerRider() {
+    if (userCount >= MAX_USERS || riderCount >= MAX_RIDERS) {
+        printf("Maximum user or rider limit reached!\n");
+        return;
+    }
+   
+    User newUser;
+    char input[100];
+   
+    printf("\n===== RIDER REGISTRATION =====\n");
+   
+    newUser.id = userCount + 1;
+    strcpy(newUser.type, "rider");
+   
+    while (1) {
+        printf("Full Name: ");
+        getchar(); // Clear input buffer
+        fgets(input, sizeof(input), stdin);
+        input[strcspn(input, "\n")] = '\0';
+       
+        if (validateInput(input, 0)) {
+            strcpy(newUser.name, input);
+            break;
+        }
+        printf("Invalid name! Only alphabets and spaces allowed.\n");
+    }
+   
+    printf("Username: ");
+    scanf("%s", newUser.username);
+   
+    printf("Password: ");
+    scanf("%s", newUser.password);
+   
+    while (1) {
+        printf("Phone Number: ");
+        scanf("%s", input);
+        if (validateInput(input, 1) && strlen(input) == 10) {
+            strcpy(newUser.phone, input);
+            break;
+        }
+        printf("Invalid phone number! Must be 10 digits.\n");
+    }
+   
+    printf("Address: ");
+    getchar(); // Clear input buffer
+    fgets(newUser.address, sizeof(newUser.address), stdin);
+    newUser.address[strcspn(newUser.address, "\n")] = '\0';
+   
+    // Add to users
+    users[userCount++] = newUser;
+   
+    // Create rider record
+    Rider newRider = {riderCount + 1, newUser.id, "available", -1};
+    riders[riderCount++] = newRider;
+   
+    saveUsersToFile();
+    saveRidersToFile();
+   
+    printf("\nRegistration successful! You can now login as a rider.\n");
+}
+
