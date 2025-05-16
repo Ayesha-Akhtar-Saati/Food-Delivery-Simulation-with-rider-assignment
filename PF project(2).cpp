@@ -394,3 +394,31 @@ User* authenticateUser(const char* username, const char* password, const char* u
     return NULL;
 }
 
+
+void userDashboard(User* user) {
+    int choice;
+    while (1) {
+        printf("\n===== USER DASHBOARD =====\n");
+        printf("1. Place New Order\n");
+        printf("2. View My Orders\n");
+        printf("3. Logout\n");
+        printf("Enter your choice: ");
+       
+        char input[10];
+        scanf("%s", input);
+       
+        if (!validateInput(input, 1)) {
+            printf("Invalid input! Please enter a number.\n");
+            continue;
+        }
+       
+        choice = atoi(input);
+       
+        switch (choice) {
+            case 1: placeOrder(user); break;
+            case 2: viewOrders(user); break;
+            case 3: return;
+            default: printf("Invalid choice! Try again.\n");
+        }
+    }
+}
