@@ -762,4 +762,56 @@ void assignRider(User* admin) {
             break;
         }
     }
+    
+    if (order == NULL) {
+        printf("Order not found!\n");
+        return;
+    }
+   
+    printf("\nAvailable Riders:\n");
+    for (int i = 0; i < riderCount; i++) {
+        if (strcmp(riders[i].status, "available") == 0) {
+            for (int j = 0; j < userCount; j++) {
+                if (users[j].id == riders[i].userId) {
+                    printf("%d. %s (%s)\n", riders[i].id, users[j].name, users[j].phone);
+                    break;
+                }
+            }
+        }
+    }
+   
+    printf("Enter Rider ID to assign: ");
+    scanf("%s", input);
+   
+    if (!validateInput(input, 1)) {
+        printf("Invalid input! Please enter a number.\n");
+        return;
+    }
+   
+    int riderId = atoi(input);
+    Rider* rider = NULL;
+   
+    for (int i = 0; i < riderCount; i++) {
+        if (riders[i].id == riderId && strcmp(riders[i].status, "available") == 0) {
+            rider = &riders[i];
+            break;
+        }
+    }
+   
+    if (rider == NULL) {
+        printf("Invalid rider ID or rider not available!\n");
+        return;
+    }
+   
+    order->riderId = rider->id;
+    strcpy(order->status, "assigned");
+    strcpy(rider->status, "on-delivery");
+    rider->currentOrderId = order->id;
+   
+    saveOrdersToFile();
+    saveRidersToFile();
+   
+    printf("Rider assigned successfully to order %d!\n", order->id);
+}
+
                         	
