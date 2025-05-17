@@ -728,4 +728,38 @@ void updateOrderStatus(User* admin) {
     saveOrdersToFile();
     printf("Order status updated successfully!\n");
 }
+
+void assignRider(User* admin) {
+    printf("\n===== ASSIGN RIDER TO ORDER =====\n");
+   
+    if (orderCount == 0) {
+        printf("No orders available.\n");
+        return;
+    }
+   
+    if (riderCount == 0) {
+        printf("No riders available.\n");
+        return;
+    }
+   
+    viewAllOrders(admin);
+   
+    char input[10];
+    printf("Enter Order ID to assign rider: ");
+    scanf("%s", input);
+   
+    if (!validateInput(input, 1)) {
+        printf("Invalid input! Please enter a number.\n");
+        return;
+    }
+   
+    int orderId = atoi(input);
+    Order* order = NULL;
+   
+    for (int i = 0; i < orderCount; i++) {
+        if (orders[i].id == orderId) {
+            order = &orders[i];
+            break;
+        }
+    }
                         	
