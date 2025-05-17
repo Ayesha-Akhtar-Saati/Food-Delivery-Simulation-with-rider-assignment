@@ -664,4 +664,68 @@ void viewOrders(User* user) {
     if (!found) {
         printf("You have no orders yet.\n");
     }
-}                        	
+}
+
+void updateOrderStatus(User* admin) {
+    printf("\n===== UPDATE ORDER STATUS =====\n");
+    
+    if (orderCount == 0) {
+        printf("No orders available.\n");
+        return;
+    }
+    
+    viewAllOrders(admin);
+    
+    char input[10];
+    printf("Enter Order ID to update: ");
+    scanf("%s", input);
+    
+    if (!validateInput(input, 1)) {
+        printf("Invalid input! Please enter a number.\n");
+        return;
+    }
+    
+    int orderId = atoi(input);
+    Order* order = NULL;
+    
+    for (int i = 0; i < orderCount; i++) {
+        if (orders[i].id == orderId) {
+            order = &orders[i];
+            break;
+        }
+    }
+    
+    if (order == NULL) {
+        printf("Order not found!\n");
+        return;
+    }
+    
+    printf("\nCurrent Status: %s\n", order->status);
+    printf("Select new status:\n");
+    printf("1. Preparing\n");
+    printf("2. Ready\n");
+    printf("3. Assigned\n");
+    printf("4. Delivered\n");
+    printf("Enter choice: ");
+    
+    scanf("%s", input);
+    
+    if (!validateInput(input, 1)) {
+        printf("Invalid input! Please enter a number.\n");
+        return;
+    }
+    
+    int choice = atoi(input);
+    
+    switch (choice) {
+        case 1: strcpy(order->status, "preparing"); break;
+        case 2: strcpy(order->status, "ready"); break;
+        case 3: strcpy(order->status, "assigned"); break;
+        case 4: strcpy(order->status, "delivered"); break;
+        default: printf("Invalid choice!\n"); return;
+    }
+    
+    saveOrdersToFile();
+    printf("Order status updated successfully!\n");
+}
+                        	
