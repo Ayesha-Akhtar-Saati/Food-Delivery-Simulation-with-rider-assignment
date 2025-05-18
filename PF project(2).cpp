@@ -1096,3 +1096,39 @@ void loadOrdersFromFile() {
    
     fclose(file);
 }
+
+void saveRidersToFile() {
+    FILE* file = fopen(FILENAME_RIDERS, "w");
+    if (file == NULL) {
+        printf("Error saving riders data!\n");
+        return;
+    }
+    
+    fprintf(file, "%d\n", riderCount);
+    for (int i = 0; i < riderCount; i++) {
+        fprintf(file, "%d\n%d\n%s\n%d\n", 
+                riders[i].id, 
+                riders[i].userId, 
+                riders[i].status, 
+                riders[i].currentOrderId);
+    }
+    
+    fclose(file);
+}
+
+void loadRidersFromFile() {
+    FILE* file = fopen(FILENAME_RIDERS, "r");
+    if (file == NULL) {
+        return; // File doesn't exist yet
+    }
+    
+    fscanf(file, "%d", &riderCount);
+    for (int i = 0; i < riderCount; i++) {
+        fscanf(file, "%d", &riders[i].id);
+        fscanf(file, "%d", &riders[i].userId);
+        fscanf(file, "%s", riders[i].status);
+        fscanf(file, "%d", &riders[i].currentOrderId);
+    }
+    
+    fclose(file);
+}
