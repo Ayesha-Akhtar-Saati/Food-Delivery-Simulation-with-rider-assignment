@@ -1072,3 +1072,27 @@ void saveOrdersToFile() {
     fclose(file);
 }
 
+void loadOrdersFromFile() {
+    FILE* file = fopen(FILENAME_ORDERS, "r");
+    if (file == NULL) {
+        return; // File doesn't exist yet
+    }
+   
+    fscanf(file, "%d", &orderCount);
+    for (int i = 0; i < orderCount; i++) {
+        fscanf(file, "%d", &orders[i].id);
+        fscanf(file, "%d", &orders[i].userId);
+        fscanf(file, "%ld", &orders[i].orderTime);
+        fscanf(file, "%d", &orders[i].itemCount);
+        fscanf(file, "%f", &orders[i].total);
+        fscanf(file, "%s", orders[i].status);
+        fscanf(file, "%d", &orders[i].riderId);
+        fscanf(file, "%s", orders[i].paymentMethod);
+       
+        for (int j = 0; j < orders[i].itemCount; j++) {
+            fscanf(file, "%d %d", &orders[i].items[j].itemId, &orders[i].items[j].quantity);
+        }
+    }
+   
+    fclose(file);
+}
