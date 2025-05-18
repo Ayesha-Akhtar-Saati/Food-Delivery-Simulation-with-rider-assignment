@@ -918,3 +918,47 @@ void viewAssignedDeliveries(User* rider) {
         printf("You have no assigned deliveries.\n");
     }
 }
+
+void updateDeliveryStatus(User* rider) {
+    printf("\n===== UPDATE DELIVERY STATUS =====\n");
+   
+    // Find the rider record
+    Rider* riderRecord = NULL;
+    for (int i = 0; i < riderCount; i++) {
+        if (riders[i].userId == rider->id) {
+            riderRecord = &riders[i];
+            break;
+        }
+    }
+   
+    if (riderRecord == NULL) {
+        printf("Rider record not found!\n");
+        return;
+    }
+   
+    if (riderRecord->currentOrderId == -1) {
+        printf("You have no assigned deliveries to update.\n");
+        return;
+    }
+   
+    Order* order = NULL;
+    for (int i = 0; i < orderCount; i++) {
+        if (orders[i].id == riderRecord->currentOrderId) {
+            order = &orders[i];
+            break;
+        }
+    }
+   
+    if (order == NULL) {
+        printf("Order not found!\n");
+        return;
+    }
+   
+    printf("\nCurrent Status: %s\n", order->status);
+    printf("Select new status:\n");
+    printf("1. Picked Up\n");
+    printf("2. Delivered\n");
+    printf("Enter choice: ");
+   
+    char input[10];
+    scanf("%s", input);
