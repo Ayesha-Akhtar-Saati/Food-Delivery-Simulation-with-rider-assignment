@@ -814,4 +814,29 @@ void assignRider(User* admin) {
     printf("Rider assigned successfully to order %d!\n", order->id);
 }
 
-                        	
+void viewAllOrders(User* admin) {
+    printf("\n===== ALL ORDERS =====\n");
+   
+    if (orderCount == 0) {
+        printf("No orders available.\n");
+        return;
+    }
+   
+    for (int i = 0; i < orderCount; i++) {
+        printf("\nOrder ID: %d\n", orders[i].id);
+       
+        for (int j = 0; j < userCount; j++) {
+            if (users[j].id == orders[i].userId) {
+                printf("Customer: %s (%s)\n", users[j].name, users[j].phone);
+                break;
+            }
+        }
+       
+        printf("Order Time: %s", ctime(&orders[i].orderTime));
+        printf("Status: %s\n", orders[i].status);
+        printf("Payment Method: %s\n", orders[i].paymentMethod);
+       
+        if (orders[i].riderId != -1) {
+            for (int j = 0; j < riderCount; j++) {
+                if (riders[j].id == orders[i].riderId) {
+                    for (int k = 0; k < userCount; k++) {                       	
