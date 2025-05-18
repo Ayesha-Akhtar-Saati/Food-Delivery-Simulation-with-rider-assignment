@@ -45,6 +45,7 @@ typedef struct {
     float total;
     char status[30]; // "preparing", "ready", "assigned", "delivered"
     int riderId;
+    char paymentMethod[20];
 } Order;
 
 typedef struct {
