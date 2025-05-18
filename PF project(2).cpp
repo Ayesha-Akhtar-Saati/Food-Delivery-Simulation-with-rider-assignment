@@ -995,3 +995,25 @@ void updateDeliveryStatus(User* rider) {
     saveOrdersToFile();
     saveRidersToFile();
 }
+
+void saveUsersToFile() {
+    FILE* file = fopen(FILENAME_USERS, "w");
+    if (file == NULL) {
+        printf("Error saving users data!\n");
+        return;
+    }
+   
+    fprintf(file, "%d\n", userCount);
+    for (int i = 0; i < userCount; i++) {
+        fprintf(file, "%d\n%s\n%s\n%s\n%s\n%s\n%s\n",
+                users[i].id,
+                users[i].name,
+                users[i].type,
+                users[i].username,
+                users[i].password,
+                users[i].phone,
+                users[i].address);
+    }
+   
+    fclose(file);
+}
