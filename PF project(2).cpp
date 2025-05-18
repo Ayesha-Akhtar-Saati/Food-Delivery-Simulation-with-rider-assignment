@@ -1044,3 +1044,31 @@ void loadUsersFromFile() {
     
     fclose(file);
 }
+
+void saveOrdersToFile() {
+    FILE* file = fopen(FILENAME_ORDERS, "w");
+    if (file == NULL) {
+        printf("Error saving orders data!\n");
+        return;
+    }
+   
+    fprintf(file, "%d\n", orderCount);
+    for (int i = 0; i < orderCount; i++) {
+        fprintf(file, "%d\n%d\n%ld\n%d\n%.2f\n%s\n%d\n%s\n",
+                orders[i].id,
+                orders[i].userId,
+                orders[i].orderTime,
+                orders[i].itemCount,
+                orders[i].total,
+                orders[i].status,
+                orders[i].riderId,
+                orders[i].paymentMethod);
+       
+        for (int j = 0; j < orders[i].itemCount; j++) {
+            fprintf(file, "%d %d\n", orders[i].items[j].itemId, orders[i].items[j].quantity);
+        }
+    }
+   
+    fclose(file);
+}
+
