@@ -1,8 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <time.h>
+#include <stdio.h>//To show messages on the screen and take input from the user.
+#include <stdlib.h>//To use functions for memory, random numbers, and exiting the program
+#include <string.h>//To work with words and text, like copying or comparing strings.
+#include <ctype.h>//To check or change characters, like making letters uppercase
+#include <time.h>//To work with date and time, like getting the current time or creating delays
 
 // Constants
 const int MAX_USERS = 100;
@@ -98,7 +98,7 @@ int main() {
     mainMenu();
     return 0;
 }
-
+//Initializes the system by loading saved data and creating a default admin and rider if no users exist.
 void initializeSystem() {
     loadUsersFromFile();
     loadOrdersFromFile();
@@ -146,7 +146,11 @@ void loadMenuItems() {
     menuItems[menuItemCount++] = (MenuItem){15, "Egg Fried Rice", 945.0, "MAIN COURSE"};
     menuItems[menuItemCount++] = (MenuItem){16, "Singaporean Noodles", 1237.0, "MAIN COURSE"};
 }
-
+//This function checks if the input is correct:
+//If isNumeric is true, it makes sure the input has only numbers.
+//If isNumeric is false, it makes sure the input has only letters and spaces.
+//If the input is empty or has wrong characters, it returns 0 (invalid).
+//If it's correct, it returns 1 (valid).
 int validateInput(const char* input, int isNumeric) {
     if (strlen(input) == 0) return 0;
    
@@ -162,7 +166,7 @@ int validateInput(const char* input, int isNumeric) {
         return 1;
     }
 }
-
+//Shows the main menu, takes user input, and runs the selected option like login, registration, or exit.
 void mainMenu() {
     int choice;
     while (1) {
@@ -253,7 +257,7 @@ void riderLogin() {
         printf("\nInvalid username or password.\n");
     }
 }
-
+//Registers a new user by collecting and validating their details, then saving them to the system
 void registerUser() {
     if (userCount >= MAX_USERS) {
         printf("Maximum user limit reached!\n");
@@ -368,7 +372,7 @@ void registerRider() {
    
     printf("\nRegistration successful! You can now login as a rider.\n");
 }
-
+//Checks if a user's username, password, and type are correct, and returns the user if valid (especially verifies rider accounts exist).
 User* authenticateUser(const char* username, const char* password, const char* userType) {
     for (int i = 0; i < userCount; i++) {
         if (strcmp(users[i].username, username) == 0 && 
@@ -395,7 +399,7 @@ User* authenticateUser(const char* username, const char* password, const char* u
     return NULL;
 }
 
-
+//Shows the user dashboard menu where users can place orders, view their orders, or log out
 void userDashboard(User* user) {
     int choice;
     while (1) {
@@ -481,7 +485,7 @@ void riderDashboard(User* rider) {
         }
     }
 }
-
+//Allows a user to browse the menu, select items, choose a payment method, and place a new food order
 void placeOrder(User* user) {
     if (orderCount >= MAX_ORDERS) {
         printf("Maximum order limit reached!\n");
@@ -619,7 +623,7 @@ void placeOrder(User* user) {
         printf("\nNo items were added to the order.\n");
     }
 }
-
+//Displays all past orders placed by the currently logged-in user with full details
 void viewOrders(User* user) {
     printf("\n===== YOUR ORDERS =====\n");
    
@@ -666,7 +670,7 @@ void viewOrders(User* user) {
         printf("You have no orders yet.\n");
     }
 }
-
+//Allows the admin to view all orders and update the status of a selected order
 void updateOrderStatus(User* admin) {
     printf("\n===== UPDATE ORDER STATUS =====\n");
     
@@ -729,7 +733,7 @@ void updateOrderStatus(User* admin) {
     saveOrdersToFile();
     printf("Order status updated successfully!\n");
 }
-
+//Allows an admin to assign an available rider to a selected order and update both the order and rider records accordingly.
 void assignRider(User* admin) {
     printf("\n===== ASSIGN RIDER TO ORDER =====\n");
    
@@ -814,7 +818,7 @@ void assignRider(User* admin) {
    
     printf("Rider assigned successfully to order %d!\n", order->id);
 }
-
+//Displays all customer orders for an admin, including: Customer details, Order time and status, Payment method, Assigned rider (if any), Ordered items and total cost
 void viewAllOrders(User* admin) {
     printf("\n===== ALL ORDERS =====\n");
    
@@ -866,7 +870,7 @@ void viewAllOrders(User* admin) {
         printf("Total: Rs %.2f\n", orders[i].total);
     }
 }
-
+//This function displays all orders assigned to the currently logged-in rider, including: Customer details, Delivery address, Order contents and total
 void viewAssignedDeliveries(User* rider) {
     printf("\n===== YOUR ASSIGNED DELIVERIES =====\n");
     
@@ -919,7 +923,7 @@ void viewAssignedDeliveries(User* rider) {
         printf("You have no assigned deliveries.\n");
     }
 }
-
+//This function lets a rider update the delivery status of their current assigned order, marking it as either: "on the way" (picked up), "delivered"
 void updateDeliveryStatus(User* rider) {
     printf("\n===== UPDATE DELIVERY STATUS =====\n");
    
@@ -996,7 +1000,7 @@ void updateDeliveryStatus(User* rider) {
     saveOrdersToFile();
     saveRidersToFile();
 }
-
+//This function writes all users' data (such as ID, name, username, etc.) to a file defined by FILENAME_USERS.
 void saveUsersToFile() {
     FILE* file = fopen(FILENAME_USERS, "w");
     if (file == NULL) {
@@ -1018,7 +1022,7 @@ void saveUsersToFile() {
    
     fclose(file);
 }
-
+//Reads users from a file (like "users.txt") and loads them into the global users[] array
 void loadUsersFromFile() {
     FILE* file = fopen(FILENAME_USERS, "r");
     if (file == NULL) {
@@ -1045,7 +1049,7 @@ void loadUsersFromFile() {
     
     fclose(file);
 }
-
+//"This function saves all the orders from memory into a file, so the data doesn't get lost when the program is closed."
 void saveOrdersToFile() {
     FILE* file = fopen(FILENAME_ORDERS, "w");
     if (file == NULL) {
@@ -1072,7 +1076,7 @@ void saveOrdersToFile() {
    
     fclose(file);
 }
-
+//This function loads all saved orders from a file back into memory when the program starts, so you can continue working with the previous data.
 void loadOrdersFromFile() {
     FILE* file = fopen(FILENAME_ORDERS, "r");
     if (file == NULL) {
@@ -1097,7 +1101,7 @@ void loadOrdersFromFile() {
    
     fclose(file);
 }
-
+//"This function saves all rider information from memory into a file, so the data is not lost when the program is closed."
 void saveRidersToFile() {
     FILE* file = fopen(FILENAME_RIDERS, "w");
     if (file == NULL) {
@@ -1116,7 +1120,7 @@ void saveRidersToFile() {
     
     fclose(file);
 }
-
+//"This function loads all rider information from a file back into memory, so the program can continue using the saved data."
 void loadRidersFromFile() {
     FILE* file = fopen(FILENAME_RIDERS, "r");
     if (file == NULL) {
