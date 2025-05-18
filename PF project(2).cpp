@@ -1017,3 +1017,30 @@ void saveUsersToFile() {
    
     fclose(file);
 }
+
+void loadUsersFromFile() {
+    FILE* file = fopen(FILENAME_USERS, "r");
+    if (file == NULL) {
+        return; // File doesn't exist yet
+    }
+    
+    fscanf(file, "%d", &userCount);
+    for (int i = 0; i < userCount; i++) {
+        fscanf(file, "%d", &users[i].id);
+        fgetc(file); // Consume newline
+        fgets(users[i].name, sizeof(users[i].name), file);
+        users[i].name[strcspn(users[i].name, "\n")] = '\0';
+        fgets(users[i].type, sizeof(users[i].type), file);
+        users[i].type[strcspn(users[i].type, "\n")] = '\0';
+        fgets(users[i].username, sizeof(users[i].username), file);
+        users[i].username[strcspn(users[i].username, "\n")] = '\0';
+        fgets(users[i].password, sizeof(users[i].password), file);
+        users[i].password[strcspn(users[i].password, "\n")] = '\0';
+        fgets(users[i].phone, sizeof(users[i].phone), file);
+        users[i].phone[strcspn(users[i].phone, "\n")] = '\0';
+        fgets(users[i].address, sizeof(users[i].address), file);
+        users[i].address[strcspn(users[i].address, "\n")] = '\0';
+    }
+    
+    fclose(file);
+}
