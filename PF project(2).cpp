@@ -962,3 +962,36 @@ void updateDeliveryStatus(User* rider) {
    
     char input[10];
     scanf("%s", input);
+      
+    if (!validateInput(input, 1)) {
+        printf("Invalid input! Please enter a number.\n");
+        return;
+    }
+   
+    int choice = atoi(input);
+   
+    switch (choice) {
+        case 1:
+            strcpy(order->status, "on the way");
+            printf("Status updated to 'on the way'.\n");
+            break;
+        case 2:
+            strcpy(order->status, "delivered");
+            strcpy(riderRecord->status, "available");
+            riderRecord->currentOrderId = -1;
+           
+            // If payment was by card, process payment
+            if (strcmp(order->paymentMethod, "card") == 0) {
+                printf("Card payment processed successfully.\n");
+            }
+           
+            printf("Status updated to 'delivered'. You are now available for new deliveries.\n");
+            break;
+        default:
+            printf("Invalid choice!\n");
+            return;
+    }
+   
+    saveOrdersToFile();
+    saveRidersToFile();
+}
