@@ -865,3 +865,56 @@ void viewAllOrders(User* admin) {
         printf("Total: Rs %.2f\n", orders[i].total);
     }
 }
+
+void viewAssignedDeliveries(User* rider) {
+    printf("\n===== YOUR ASSIGNED DELIVERIES =====\n");
+    
+    // Find the rider record
+    Rider* riderRecord = NULL;
+    for (int i = 0; i < riderCount; i++) {
+        if (riders[i].userId == rider->id) {
+            riderRecord = &riders[i];
+            break;
+        }
+    }
+    
+    if (riderRecord == NULL) {
+        printf("Rider record not found!\n");
+        return;
+    }
+    
+    int found = 0;
+    for (int i = 0; i < orderCount; i++) {
+        if (orders[i].riderId == riderRecord->id) {
+            found = 1;
+            printf("\nOrder ID: %d\n", orders[i].id);
+            
+            for (int j = 0; j < userCount; j++) {
+                if (users[j].id == orders[i].userId) {
+                    printf("Customer: %s (%s)\n", users[j].name, users[j].phone);
+                    printf("Address: %s\n", users[j].address);
+                    printf("Payment Method: %s\n", orders[i].paymentMethod);
+                    break;
+                }
+            }
+            
+            printf("Order Time: %s", ctime(&orders[i].orderTime));
+            printf("Status: %s\n", orders[i].status);
+            
+            printf("Items:\n");
+            for (int j = 0; j < orders[i].itemCount; j++) {
+                for (int k = 0; k < menuItemCount; k++) {
+                    if (menuItems[k].id == orders[i].items[j].itemId) {
+                        printf("- %d x %s\n", orders[i].items[j].quantity, menuItems[k].name);
+                        break;
+                    }
+                }
+            }
+            printf("Total: Rs %.2f\n", orders[i].total);
+        }
+    }
+    
+    if (!found) {
+        printf("You have no assigned deliveries.\n");
+    }
+}
