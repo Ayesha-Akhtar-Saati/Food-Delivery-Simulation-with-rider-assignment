@@ -152,16 +152,16 @@ void loadMenuItems() {
 //If the input is empty or has wrong characters, it returns 0 (invalid).
 //If it's correct, it returns 1 (valid).
 int validateInput(const char* input, int isNumeric) {
-    if (strlen(input) == 0) return 0;
+    if (strlen(input) == 0) return 0;//If the input is empty (no characters), it's invalid ? return 0.
    
     if (isNumeric) {
         for (int i = 0; input[i] != '\0'; i++) {
-            if (!isdigit(input[i])) return 0;
+            if (!isdigit(input[i])) return 0;//If any character is not a digit (0-9), return 0 (invalid).
         }
-        return 1;
+        return 1;//If all characters are digits, return 1 (valid).
     } else {
         for (int i = 0; input[i] != '\0'; i++) {
-            if (!isalpha(input[i]) && input[i] != ' ') return 0;
+            if (!isalpha(input[i]) && input[i] != ' ') return 0; //If a character is not a letter and not a space, return 0 (invalid)
         }
         return 1;
     }
@@ -379,11 +379,11 @@ User* authenticateUser(const char* username, const char* password, const char* u
             strcmp(users[i].password, password) == 0 &&
             strcmp(users[i].type, userType) == 0) {
             
-            // For riders, verify there's a rider record
+            // For riders, verify there's a rider record 
             if (strcmp(userType, "rider") == 0) {
                 int riderFound = 0;
                 for (int j = 0; j < riderCount; j++) {
-                    if (riders[j].userId == users[i].id) {
+                    if (riders[j].userId == users[i].id) {//It compares the rider’s userId with the user’s id
                         riderFound = 1;
                         break;
                     }
@@ -409,8 +409,8 @@ void userDashboard(User* user) {
         printf("3. Logout\n");
         printf("Enter your choice: ");
        
-        char input[10];
-        scanf("%s", input);
+        char input[10];//In an array, space is already reserved for the input, so we don’t use & in scanf.
+        scanf("%s", input);//Takes the user’s choice as a string (instead of directly as an integer) to allow for validation.
        
         if (!validateInput(input, 1)) {
             printf("Invalid input! Please enter a number.\n");
@@ -430,7 +430,7 @@ void userDashboard(User* user) {
 
 void adminDashboard(User* admin) {
     int choice;
-    while (1) {
+    while (1) {//It shows the Admin Dashboard menu again and again (inside a loop) until the admin chooses to logout
         printf("\n===== ADMIN DASHBOARD =====\n");
         printf("1. View All Orders\n");
         printf("2. Update Order Status\n");
@@ -439,14 +439,14 @@ void adminDashboard(User* admin) {
         printf("Enter your choice: ");
        
         char input[10];
-        scanf("%s", input);
+        scanf("%s", input);//In an array, space is already reserved for the input, so we don’t use & in scanf.
        
-        if (!validateInput(input, 1)) {
+        if (!validateInput(input, 1)) {////Takes the user’s choice as a string (instead of directly as an integer) to allow for validation
             printf("Invalid input! Please enter a number.\n");
             continue;
         }
        
-        choice = atoi(input);
+        choice = atoi(input);//it convert string into number
        
         switch (choice) {
             case 1: viewAllOrders(admin); break;
